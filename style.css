@@ -1,77 +1,74 @@
 body {
-  font-family: sans-serif;
-  background-color: #c3e6fc;
+    font-family: sans-serif;
+    background-color: #c3e6fc;
 }
 .result-message {
     font-size: 20px;
 }
 .file-upload {
-  background-color: #c3e6fc;
-  width: 600px;
-  margin: 0 auto;
-  
+    background-color: #c3e6fc;
+    width: 600px;
+    margin: 0 auto;
 }
 
 .file-upload-btn {
-  width: 100%;
-  margin: 0;
-  color: #fff;
-  background: #1FB264;
-  border: none;
-  padding: 10px;
-  border-radius: 4px;
-  border-bottom: 4px solid #15824B;
-  transition: all .2s ease;
-  outline: none;
-  text-transform: uppercase;
-  font-weight: 700;
+    width: 100%;
+    margin: 0;
+    color: #fff;
+    background: #1fb264;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    border-bottom: 4px solid #15824b;
+    transition: all 0.2s ease;
+    outline: none;
+    text-transform: uppercase;
+    font-weight: 700;
 }
 
 .file-upload-btn:hover {
-  background: #1AA059;
-  color: #ffffff;
-  transition: all .2s ease;
-  cursor: pointer;
+    background: #1aa059;
+    color: #ffffff;
+    transition: all 0.2s ease;
+    cursor: pointer;
 }
 
 .file-upload-btn:active {
-  border: 0;
-  transition: all .2s ease;
+    border: 0;
+    transition: all 0.2s ease;
 }
 
 .file-upload-content {
-  display: none;
-  text-align: center;
+    display: none;
+    text-align: center;
 }
 
 .file-upload-input {
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  outline: none;
-  opacity: 0;
-  cursor: pointer;
+   
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    opacity: 0;
+    cursor: pointer;
 }
 
 .image-upload-wrap {
     object-fit: contain;
     border-radius: 10px;
-    border: solid 4px
-        #35465d;
-    background-color: 
-        #ffffff;
-    
-  margin-top: 20px;
-  
-  position: relative;
+    border: solid 4px #35465d;
+    background-color: #ffffff;
+
+    margin-top: 20px;
+
+    position: relative;
 }
 
 .image-dropping,
 .image-upload-wrap:hover {
-  background-color: #ffe9f4;
-  border: 4px dashed #35465d;
+    background-color: #ffe9f4;
+    border: 4px dashed #35465d;
 }
 .mbti-link,
 .mbti-link:hover {
@@ -84,53 +81,53 @@ body {
 }
 
 .image-title-wrap {
-  padding: 0 15px 15px 15px;
-  color: #222;
+    padding: 0 15px 15px 15px;
+    color: #222;
 }
 
 .drag-text {
-  text-align: center;
+    text-align: center;
 }
 
 .drag-text h3 {
-  font-weight: 100;
-  text-transform: uppercase;
-  color: #003f34;
-  padding: 60px 0;
+    font-weight: 100;
+    text-transform: uppercase;
+    color: #003f34;
+    padding: 60px 0;
 }
 
 .file-upload-image {
-  max-height: 200px;
-  max-width: 200px;
-  margin: auto;
-  padding: 20px;
+    max-height: 200px;
+    max-width: 200px;
+    margin: auto;
+    padding: 20px;
 }
 
 .remove-image {
-  width: 200px;
-  margin: 0;
-  color: #fff;
-  background: #cd4535;
-  border: none;
-  padding: 10px;
-  border-radius: 4px;
-  border-bottom: 4px solid #b02818;
-  transition: all .2s ease;
-  outline: none;
-  text-transform: uppercase;
-  font-weight: 700;
+    width: 200px;
+    margin: 0;
+    color: #fff;
+    background: #cd4535;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    border-bottom: 4px solid #b02818;
+    transition: all 0.2s ease;
+    outline: none;
+    text-transform: uppercase;
+    font-weight: 700;
 }
 
 .remove-image:hover {
-  background: #c13b2a;
-  color: #ffffff;
-  transition: all .2s ease;
-  cursor: pointer;
+    background: #c13b2a;
+    color: #ffffff;
+    transition: all 0.2s ease;
+    cursor: pointer;
 }
 
 .remove-image:active {
-  border: 0;
-  transition: all .2s ease;
+    border: 0;
+    transition: all 0.2s ease;
 }
 .section {
     margin-top: 100px;
@@ -149,11 +146,39 @@ body {
     text-align: center;
     color: #35465d;
 }
-@media screen and (max-width: 600px){
-     html{
+@media screen and (max-width: 600px) {
+    html {
         font-size: 10px;
     }
-.navbar-brand {
-    font-size: 2rem;
+    .navbar-brand {
+        font-size: 2rem;
+    }
 }
+.mbti-femalever {
+    width: 100px;
+    background-color: #289aff;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px;
+    cursor: pointer;
+    border-radius: 10px;
+    
+}
+.mbti-malever {
+    width: 100px;
+    background-color: #289aff;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+#container{
+    text-align: center;
 }

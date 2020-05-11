@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+     <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>FaceMBTItest</title>
+    <link rel="stylesheet" href="style.css">
+         <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eaf13680db924c8"></script>
+
+</head>
+
+<body>
+    <!-- As a heading -->
+<nav class="navbar navbar-light bg-light">
+  <span class="navbar-brand mb-0 h1">재미로 보는 MBTI 테스트</span>
+</nav>
+    <section class="section">
+        <h1 class="title">나는 어떤 유형의 사람일까?</h1>
+    </section>
+    <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <div class="file-upload">
+       
+        <div class="image-upload-wrap">
+            <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+            <div class="drag-text">
+                <h3 class = "upload-text">얼굴사진 올리기<br>
+                <br>or<br>
+                <br>눌러서 업로드<br></h3>
+            </div>
+        </div>
+        <div class="file-upload-content">
+            <img class="file-upload-image" id = "face-image" src="#" alt="your image" />
+            <div id="label-container"></div>
+            <div class="image-title-wrap">
+                <button type="button" onclick="removeUpload()" class="remove-image">Remove
+                    <span class="image-title">Uploaded Image</span>
+                </button><br><br><br>
+                <p class = 'result-message'></p>
+                
+                <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                <div class="addthis_inline_share_toolbox"></div>
+                <br><br>
+                <a class = "mbti-link" href ="https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC" title = "mbti무료성격유형검사">MBTI 검사하러가기</a>
+            
+            </div>
+        </div>
+    </div>
+    <div id="webcam-container"></div>
+        <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('.image-upload-wrap').hide();
+                    $('.file-upload-image').attr('src', e.target.result);
+                    $('.file-upload-content').show();
+                    
+                };
+                reader.readAsDataURL(input.files[0]);
+                init().then(()=>{
+                    console.log("hello")
+                    predict();
+                });
+                
+            } else {
+                removeUpload();
+            }
+        }
+
+        function removeUpload() {
+            $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+            $('.file-upload-content').hide();
+            $('.image-upload-wrap').show();
+        }
+        $('.image-upload-wrap').bind('dragover', function() {
+            $('.image-upload-wrap').addClass('image-dropping');
+        });
+        $('.image-upload-wrap').bind('dragleave', function() {
+            $('.image-upload-wrap').removeClass('image-dropping');
+        });
+    </script>
+    <script type="text/javascript">
+        document.getElementById("label-container").style.display = "none";
+        // More API functions here:
+        // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+        // the link to your model provided by Teachable Machine export panel
+        const URL = "https://teachablemachine.withgoogle.com/models/XZACNjoUG/";
+        let model, webcam, labelContainer, maxPredictions;
+        // Load the image model and setup the webcam
+        async function init() {
+            const modelURL = URL + "model.json";
+            const metadataURL = URL + "metadata.json";
+            // load the model and metadata
+            // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+            // or files from your local hard drive
+            // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+            model = await tmImage.load(modelURL, metadataURL);
+            maxPredictions = model.getTotalClasses();
+            labelContainer = document.getElementById("label-container");
+            for (let i = 0; i < maxPredictions; i++) { // and class labels
+                labelContainer.appendChild(document.createElement("div"));
+            }
+        }
+        
+        async function predict() {
+            // predict can take in an image, video or canvas html element
+            var image = document.getElementById("face-image")
+            const prediction = await model.predict(image, false);
+            prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
+            console.log(prediction[0].className);
+            var resultMessage; 
+            switch(prediction[0].className){
+                case "용의주도한전략가" :
+                    resultMessage = "INTJ-A/INTJ-T" + '<br/>' + "당신은 '용의주도한전략가' 이군요!" + '<br/>' + "상상력이 풍부하며 철두철미한 계획을 세우는 전략가입니다."
+                    break; 
+                    case "논리적인사색가" :
+                    resultMessage = "INTP-A/INTP-T" + '<br/>' + "당신은 '논리적인사색가' 이군요!" + '<br/>' + "끊임없이 새로운 지식에 목말라 하는 혁신가입니다."
+                    break; 
+                    case "대담한통솔자" :
+                    resultMessage = "ENTJ-A/ENTJ-T" + '<br/>' + "당신은 '대담한통솔자' 이군요!" + '<br/>' + "대담하면서도 상상력이 풍부한 강한 의지의 소유자입니다."
+                    break; 
+                    case "뜨거운논쟁을즐기는변론가" :
+                    resultMessage = "ENTP-A/ENTP-T" + '<br/>' + "당신은 '뜨거운논쟁을즐기는변론가' 이군요!" + '<br/>' + "지적인 도전을 두려워하지 않는 똑똑한 호기심을 가졌습니다."
+                    break; 
+                    case "선의의옹호자" :
+                    resultMessage = "INFJ-A/INFJ-T" + '<br/>' + "당신은 '선의의옹호자' 이군요!" + '<br/>' + "조용하고 신비로우며 샘솟는 영감으로 지칠 줄 모르는 이상주의자입니다."
+                    break; 
+                    case "열정적인중재자" :
+                    resultMessage = "INFP-A/INFP-T" + '<br/>' + "당신은 '열정적인중재자' 이군요!" + '<br/>' + "상냥한 성격의 이타주의자로 건강하고 밝은 사회 건설에 앞장서는 낭만가입니다."
+                    break; 
+                    case "정의로운사회운동가" :
+                    resultMessage = "ENFJ-A/ENFJ-T" + '<br/>' + "당신은 '정의로운사회운동가' 이군요!" + '<br/>' + "넘치는 카리스마와 영향력으로 청중을 압도하는 리더입니다."
+                    break; 
+                    case "재기발랄한활동가" :
+                    resultMessage = "ENFP-A/ENFP-T" + '<br/>' + "당신은 '재기발랄한활동가' 이군요!" + '<br/>' + "창의적이며 항상 웃을 거리를 찾아다니는 활발한 성격입니다."
+                    break; 
+                    case "청렴결백한논리주의자" :
+                    resultMessage = "ISTJ-A/ISTJ-T" + '<br/>' + "당신은 '청렴결백한논리주의자' 이군요!" + '<br/>' + "사실에 근거하여 사고하며 현실주의자입니다."
+                    break; 
+                    case "용감한수호자" :
+                    resultMessage = "ISFJ-A/ISFJ-T" + '<br/>' + "당신은 '용감한수호자' 이군요!" + '<br/>' + "소중한 이들을 수호하는 데 심혈을 기울이는 헌신적이며 성실한 방어자입니다."
+                    break; 
+                    case "엄격한관리자" :
+                    resultMessage = "ESTJ-A/ESTJ-T" + '<br/>' + "당신은 '엄격한관리자' 이군요!" + '<br/>' + "사물이나 사람을 관리하는 데 타의 추종을 불허하는 뛰어난 실력을 갖춘 관리자입니다."
+                    break; 
+                    case "사교적인외교관" :
+                    resultMessage = "ESFJ-A/ESFJ-T" + '<br/>' + "당신은 '사교적인외교관' 이군요!" + '<br/>' + "타인을 향한 세심한 관심과 사교적인 성향으로 인기가 많고 타인을 돕는데 열성적입니다."
+                    break; 
+                    case "만능재주꾼" :
+                    resultMessage = "ISTP-A/ISTP-T" + '<br/>' + "당신은 '만능재주꾼' 이군요!" + '<br/>' + "대담하고 현실적인 성향으로 다양한 도구 사용에 능숙합니다."
+                    break; 
+                    case "호기심많은예술가" :
+                    resultMessage = "ISFP-A/ISFP-T" + '<br/>' + "당신은 '호기심많은예술가' 이군요!" + '<br/>' + "항시 새로운 것을 찾아 시도하거나 도전할 준비가 되어 있습니다."
+                    break; 
+                    case "모험을즐기는사업가" :
+                    resultMessage = "ESTP-A/ESTP-T" + '<br/>' + "당신은 '모험을즐기는사업가' 이군요!" + '<br/>' + "벼랑 끝의 아슬아슬한 삶을 진정으로 즐길 줄 아는 사람입니다."
+                    break; 
+                    case "자유로운영혼의연예인" :
+                    resultMessage = "ESFP-A/ESFP-T" + '<br/>' + "당신은 '자유로운영혼의연예인' 이군요!" + '<br/>' + "즉흥적이며 열정과 에너지가 넘치는 연예인같은 사람입니다."
+                    break; 
+                    default: 
+                    resultMessage = "당신이 어떤 성격인지 파악이 안됩니다."
+            }
+            $('.result-message').html(resultMessage);
+            for (let i = 0; i < maxPredictions; i++) {
+            const classPrediction =
+             prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+            labelContainer.childNodes[i].innerHTML = classPrediction;
+            }
+        }
+    </script>
+
+</body>
+<!--Copyright (c) 2020 by Aaron Vanston (https://codepen.io/aaronvanston/pen/yNYOXR)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. -->
+
+</html>
