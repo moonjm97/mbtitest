@@ -1,5 +1,8 @@
- body {
-    font-family: sans-serif;
+ 
+
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+body {
+    font-family: 'Black Han Sans', sans-serif;
     background-color: #ffffff;
 }
 .result-message {
@@ -72,10 +75,10 @@
 }
 .mbti-link,
 .mbti-link:hover {
-    font-family: NanumSquare;
+    font-family: 'Black Han Sans', sans-serif;
     font-size: 20px;
     line-height: normal;
-    text-align: center;
+    text-align: center;ㅎ
     color: #35465d;
     text-decoration: underline;
 }
@@ -133,11 +136,11 @@
     margin-top: 100px;
 }
 .title {
-    font-family: NanumSquare;
+    font-family: 'Black Han Sans', sans-serif;
     font-size: 40px;
     line-height: normal;
     text-align: center;
-    color: #35465d;
+    color: #000000;
 }
 .subtitle {
     font-family: NanumSquare;
