@@ -1,6 +1,6 @@
-body {
+ body {
     font-family: sans-serif;
-    background-color: #c3e6fc;
+    background-color: #ffffff;
 }
 .result-message {
     font-size: 20px;
@@ -182,12 +182,7 @@ body {
 #container{
     text-align: center;
 }
-.youtube-link{
-    vertical-align: top;
-    text-align: left;
-    font-size: 0.8rem;
-    padding: 8px 9px;
-}
+
 .ad-banner {
     width: 320px;
     margin: 0 auto;
