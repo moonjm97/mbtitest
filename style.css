@@ -9,7 +9,7 @@ body {
     font-size: 20px;
 }
 .file-upload {
-    background-color: #c3e6fc;
+    background-color: #ffe9f4;
     width: 600px;
     margin: 0 auto;
 }
@@ -44,6 +44,7 @@ body {
 .file-upload-content {
     display: none;
     text-align: center;
+
 }
 
 .file-upload-input {
@@ -78,8 +79,8 @@ body {
     font-family: 'Black Han Sans', sans-serif;
     font-size: 20px;
     line-height: normal;
-    text-align: center;ㅎ
-    color: #35465d;
+    text-align: center;
+    color: #000000;
     text-decoration: underline;
 }
 
