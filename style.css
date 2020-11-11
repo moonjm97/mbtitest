@@ -66,10 +66,8 @@ body {
     border-radius: 10px;
     border: solid 4px #35465d;
     background-color: #ffffff;
-
-    margin-top: 20px;
-
-    position: relative;
+    max-width: 100%; 
+    height: auto;"
 }
 
 .image-dropping,
