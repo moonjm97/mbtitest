@@ -5,6 +5,12 @@ body {
     font-family: 'Black Han Sans', sans-serif;
     background-color: #ffffff;
 }
+
+.img { 
+    width: 100%; 
+    height: auto; 
+}
+
 .result-message {
     font-size: 20px;
 }
