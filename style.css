@@ -93,6 +93,9 @@ body {
 .image-title-wrap {
     padding: 0 15px 15px 15px;
     color: #222;
+    margin: 0 auto;
+    max-width: 100%; 
+    height: auto;
 }
 
 .drag-text {
