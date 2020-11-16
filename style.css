@@ -44,17 +44,13 @@ body {
 .file-upload-btn:active {
     border: 0;
     transition: all 0.2s ease;
-    margin: 0 auto;
-    max-width: 100%; 
-    height: auto;
+    
 }
 
 .file-upload-content {
     display: none;
     text-align: center;
-    margin: 0 auto;
-    max-width: 100%; 
-    height: auto;
+    
 
 }
 
@@ -76,6 +72,7 @@ body {
     background-color: #ffffff;
     max-width: 100%; 
     height: auto;
+    margin: 0 auto;
 }
 
 .image-dropping,
