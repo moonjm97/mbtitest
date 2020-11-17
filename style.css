@@ -7,7 +7,6 @@ body {
 }
 
 
-
 .result-message {
     font-size: 20px;
 }
@@ -15,7 +14,7 @@ body {
     background-color: #ffe9f4;
 
     margin: 0 auto;
-    max-width: 40%; 
+    max-width: 80%; 
     height: auto;
 }
 
@@ -50,10 +49,7 @@ body {
 .file-upload-content {
     display: none;
     text-align: center;
-    margin: 0 auto;
-    
     height: auto;
-    
 
 }
 
@@ -74,8 +70,6 @@ body {
     border: solid 4px #35465d;
     background-color: #ffffff;
     
-    height: auto;
-    margin: 0 auto;
 }
 
 .image-dropping,
@@ -198,5 +192,4 @@ body {
 #container{
     text-align: center;
     }
-
 
